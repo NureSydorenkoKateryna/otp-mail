@@ -53,7 +53,14 @@ public class ReadEmailCommand : ICommand
         var (resolvedPath, found) = KeyManager.ResolveKeyFilePath(keyPath);
         if (!found)
         {
-            Console.WriteLine("Key file not found.");
+            Console.WriteLine("Enter key path:");
+            keyPath = Console.ReadLine() ?? "";
+            (resolvedPath, found) = KeyManager.ResolveKeyFilePath(keyPath);
+            if (!found)
+            {
+                Console.WriteLine("Key file not found.");
+                return;
+            }
             return;
         }
 
